@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ImmersiveBackgroundLoader } from "@/components/webgl/immersive-background-loader";
 import { portfolio } from "@/data/portfolio";
 import "./globals.css";
 
@@ -43,9 +43,10 @@ const structuredData = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ImmersiveBackgroundLoader />
+        <div className="site-content-layer">{children}</div>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </body>
     </html>

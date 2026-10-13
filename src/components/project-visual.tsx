@@ -25,7 +25,12 @@ function CharacterPreview() {
 
 export function ProjectVisual({ project, index }: { project: Project; index: number }) {
   const reduced = useReducedMotion();
-  if (project.image) return <Image src={project.image.src} alt={project.image.alt} fill sizes="(max-width: 768px) 100vw, 60vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.025]" />;
+  if (project.image) return (
+    <div className="project-image-shell">
+      <Image src={project.image.src} alt={project.image.alt} fill sizes="(max-width: 768px) 100vw, 60vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.025]" />
+      <span className="project-image-tone" aria-hidden="true" />
+    </div>
+  );
   return (
     <div className={`project-visual project-visual--${project.visual}`} aria-label={`Interface concept for ${project.title}`} role="img">
       <motion.div className="project-preview-wrap" initial={reduced ? false : { opacity: 0, y: 28, rotateX: 5 }} whileInView={reduced ? undefined : { opacity: 1, y: 0, rotateX: 0 }} viewport={{ once: true, amount: 0.45 }} transition={{ duration: 0.75, ease }}>

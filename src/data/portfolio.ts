@@ -1,6 +1,7 @@
 export type SkillCategory = { title: string; description: string; items: string[] };
 
 export type Project = {
+  slug: string;
   title: string;
   eyebrow: string;
   description: string;
@@ -14,6 +15,10 @@ export type Project = {
   image?: { src: string; alt: string };
   placeholder?: boolean;
   visual: "signal" | "atlas" | "flow";
+  context: string;
+  problem: string;
+  engineering: string[];
+  annotations: { label: string; detail: string }[];
 };
 
 export const portfolio = {
@@ -24,8 +29,7 @@ export const portfolio = {
     headline: "Building intelligent software experiences.",
     shortBio: "I build mobile and web applications with a focus on Flutter, thoughtful product engineering, and practical AI/ML integration.",
     about: [
-      "I’m a software engineer based in Peshawar, Pakistan, and a Software Engineering student at COMSATS University Islamabad, Abbottabad Campus. I turn complex ideas into focused, useful products across mobile, web, backend, and machine learning.",
-      "My current work centers on Flutter applications and applied AI/ML systems—from real-time audio analysis to computer vision and explainable prediction tools. I care about reliable engineering, honest evaluation, and interfaces that make advanced technology understandable.",
+      "Mobile apps. Strong backends. Useful AI.",
     ],
     focus: ["Flutter application development", "Applied AI / ML", "Product-minded engineering"],
     email: "shahsyedmustfa@gmail.com",
@@ -55,26 +59,56 @@ export const portfolio = {
   ] satisfies SkillCategory[],
   projects: [
     {
+      slug: "makharij-pro-ai",
       title: "MakharijPro AI", eyebrow: "Featured case study · Flutter + AI",
       description: "An AI-powered Quran recitation companion that detects Tajweed errors and gives word-level feedback as a learner recites.",
       detail: "The system connects a Flutter reading experience to a FastAPI backend and a streaming Arabic speech recognizer. Its phoneme-to-word mapping turns raw recognition output into understandable Tajweed feedback.",
       role: "Full-stack & AI/ML developer", technologies: ["Flutter", "Dart", "Python", "FastAPI", "Firebase"],
       features: ["Live word highlighting driven by speech recognition", "Named Tajweed feedback with recording playback", "Progress tracking and personalized practice plans"],
       outcome: "Built an end-to-end system supporting word-level reference data across all 6,236 Quran ayahs.", github: "https://github.com/mustfaaaa/makharij-pro", demo: "", placeholder: false, visual: "signal",
+      context: "Quran learners need feedback that connects a recited sound to the exact word and Tajweed rule they should review.",
+      problem: "Raw speech-recognition output is difficult to interpret. The product needed to convert streaming Arabic phonemes into clear, word-aligned guidance without interrupting the reading flow.",
+      engineering: ["Flutter reading and recording workflow", "FastAPI analysis boundary", "Streaming Arabic speech recognition", "Phoneme-to-word feedback mapping", "Firebase-backed progress data"],
+      annotations: [
+        { label: "Mobile interface", detail: "Flutter coordinates reading, recording, playback, and feedback states." },
+        { label: "Audio pipeline", detail: "Recorded recitation is prepared for streaming speech analysis." },
+        { label: "Inference layer", detail: "Arabic speech output is processed into usable phoneme information." },
+        { label: "Feedback map", detail: "Phonemes are aligned with words so the interface can explain where review is needed." },
+      ],
     },
     {
+      slug: "cardiac-risk-explorer",
       title: "Cardiac Risk Model Explorer", eyebrow: "Applied machine learning",
       description: "An educational disease-risk prediction system that compares multiple model families and explains individual predictions through an accessible interface.",
       detail: "The project controls data leakage, calibrates its decision threshold, exports the selected model, and serves live predictions through a validated FastAPI application.",
       role: "Machine learning & full-stack developer", technologies: ["Python", "scikit-learn", "XGBoost", "SHAP", "FastAPI"],
       features: ["Five-model evaluation on the UCI Heart Disease dataset", "Model explanations and calibrated uncertainty", "Tested API with a dependency-free web interface"], outcome: "Reached 0.959 ROC-AUC and 96.4% sensitivity on the held-out project test set.", github: "https://github.com/mustfaaaa/Disease-Prediction", demo: "", placeholder: false, visual: "atlas",
+      context: "An educational prediction tool should communicate uncertainty and model reasoning instead of presenting a risk score as unquestionable truth.",
+      problem: "The workflow needed leakage-safe evaluation, a deliberate decision threshold, understandable feature explanations, and a usable prediction interface.",
+      engineering: ["Controlled preprocessing and train/test separation", "Five-model comparison", "Threshold calibration", "SHAP-based explanation", "Validated FastAPI prediction contract"],
+      annotations: [
+        { label: "Model comparison", detail: "Five model families are evaluated under the same project workflow." },
+        { label: "Threshold", detail: "The selected decision threshold is calibrated instead of assuming the default value." },
+        { label: "Explanation", detail: "Prediction factors are exposed so a result has inspectable context." },
+        { label: "API contract", detail: "FastAPI validates prediction inputs before inference." },
+      ],
     },
     {
+      slug: "character-recognition",
       title: "Handwritten Character Recognition", eyebrow: "Computer vision",
       description: "A complete EMNIST character-recognition workflow that accepts uploaded photos or drawings and returns predictions with confidence and alternatives.",
       detail: "The project compares classical baselines with a CNN, documents controlled experiments, analyzes real confusion patterns, and exposes the exported model through a responsive web application.",
       role: "Machine learning & application developer", technologies: ["Python", "TensorFlow", "OpenCV", "scikit-learn", "Flask"],
       features: ["Drawing and real-photo input", "Confidence with top-five alternatives", "Responsive, accessible light and dark themes"], outcome: "Achieved 90.01% accuracy across 47 classes on 18,800 held-out test images.", github: "https://github.com/mustfaaaa/Hand-Written-Character-recognition", demo: "", placeholder: false, visual: "flow",
+      context: "A recognition model becomes useful only when real people can submit imperfect drawings or photos and understand the prediction confidence.",
+      problem: "The application needed consistent image preprocessing, honest confidence communication, and an interface that worked beyond clean notebook examples.",
+      engineering: ["EMNIST baseline comparison", "CNN training and controlled evaluation", "OpenCV input normalization", "Flask inference layer", "Top-five confidence presentation"],
+      annotations: [
+        { label: "Input", detail: "Visitors can draw a character or submit a real image." },
+        { label: "Preprocessing", detail: "OpenCV normalizes varied inputs for the exported model." },
+        { label: "Inference", detail: "The CNN classifies across the documented 47-character set." },
+        { label: "Confidence", detail: "The interface shows alternatives rather than hiding model uncertainty." },
+      ],
     },
   ] satisfies Project[],
   experience: [
